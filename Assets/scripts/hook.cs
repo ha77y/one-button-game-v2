@@ -8,11 +8,19 @@ public class hook : MonoBehaviour
     public static bool On = false;
     public static int wins;
     [SerializeField] private Transform Progress;
+    private float ProgX ;
+    private float ProgY ;
+
+    void Start()
+    {
+        ProgX = Progress.position.x;
+        ProgY = Progress.position.y;
+    }
 
 
     void Update()
     {
-        Progress.position = new Vector3(Progress.position.x, (Progress.position.y - (3f - completion)));
+        Progress.position = new Vector3( ProgX, (ProgY - (3f - completion)));
 
         if (On == true)
         {
@@ -24,7 +32,7 @@ public class hook : MonoBehaviour
             }
             else if (completion > 0f)
             { 
-                completion = completion - 0.1f;
+                completion = completion - 0.01f;
             }
             else
             {

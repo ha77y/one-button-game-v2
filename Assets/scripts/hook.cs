@@ -8,27 +8,42 @@ public class hook : MonoBehaviour
     public static bool On = false;
     public static int wins;
     [SerializeField] private Transform Progress;
+    [SerializeField] private GameObject caughtFish;
+    [SerializeField] private Vector2 Vector2;
     private float ProgX ;
     private float ProgY ;
+    private float Progz ;
+
+
+    public void OnSpawnPrefab()
+    {
+        Instantiate(caughtFish, Vector2 , Quaternion.identity);
+    }
 
     void Start()
     {
         ProgX = Progress.position.x;
         ProgY = Progress.position.y;
+        Progz = Progress.position.z;
+        
+        Progress.position = new Vector3(ProgX, (ProgY - 5f), Progz);
     }
 
 
     void Update()
     {
-        Progress.position = new Vector3( ProgX, (ProgY - (3f - completion)));
+        
 
         if (On == true)
         {
-            if (completion > 3f)
+            Progress.position = new Vector3(ProgX, (ProgY -5f + completion), Progz );
+
+            if (completion > 5f)
             {
                 On = false;
                 wins = wins + 1;
                 completion = 0f;
+                OnSpawnPrefab();
             }
             else if (completion > 0f)
             { 
